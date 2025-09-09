@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { SplashScreen } from './components/SplashScreen';
 import { LanguageSelection } from './components/LanguageSelection';
+import { LoginScreen } from './components/LoginScreen';
+import { RegisterScreen } from './components/RegisterScreen';
 import { HomeScreen } from './components/HomeScreen';
 import { ScannerScreen } from './components/ScannerScreen';
 import { ProductDetailScreen } from './components/ProductDetailScreen';
@@ -17,18 +19,24 @@ import { BadgesScreen } from './components/BadgesScreen';
 import { BottomNavigation } from './components/BottomNavigation';
 import { storage } from './utils/storage';
 import { findProductByBarcode, mockProducts } from './utils/mockData';
-import type { Screen, Product } from './types';
+import type { Screen, Product, User } from './types';
 
 function App() {
   const [currentScreen, setCurrentScreen] = useState<Screen>('splash');
   const [language, setLanguage] = useState<string>('en');
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [isFirstLaunch, setIsFirstLaunch] = useState(true);
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
     // Check if user has already selected a language
     const savedLanguage = storage.language.get();
     const hasLaunched = localStorage.getItem('vayara_has_launched');
+    const savedUser = storage.user.get();
+    
+    if (savedUser) {
+      setUser(savedUser);
+    }
     
     if (hasLaunched && savedLanguage) {
       setLanguage(savedLanguage);
@@ -40,7 +48,12 @@ function App() {
     if (isFirstLaunch) {
       setCurrentScreen('language-selection');
     } else {
-      setCurrentScreen('home');
+      // Check if user is logged in
+      if (user?.isAuthenticated) {
+        setCurrentScreen('home');
+      } else {
+        setCurrentScreen('login');
+      }
     }
   };
 
@@ -51,7 +64,47 @@ function App() {
 
   const handleLanguageContinue = () => {
     localStorage.setItem('vayara_has_launched', 'true');
+    setCurrentScreen('login');
+  };
+
+  const handleLogin = (email: string, password: string) => {
+    // Simulate login
+    const newUser: User = {
+      id: '1',
+      email,
+      name: email.split('@')[0],
+      isAuthenticated: true,
+      subscription: { type: 'free', features: [] },
+      createdAt: new Date()
+    };
+    setUser(newUser);
+    storage.user.set(newUser);
     setCurrentScreen('home');
+  };
+
+  const handleRegister = (email: string, password: string, name: string) => {
+    // Simulate registration
+    const newUser: User = {
+      id: '1',
+      email,
+      name,
+      isAuthenticated: true,
+      subscription: { type: 'free', features: [] },
+      createdAt: new Date()
+    };
+    setUser(newUser);
+    storage.user.set(newUser);
+    setCurrentScreen('home');
+  };
+
+  const handleSkipAuth = () => {
+    setCurrentScreen('home');
+  };
+
+  const handleLogout = () => {
+    setUser(null);
+    storage.user.clear();
+    setCurrentScreen('login');
   };
 
   const handleNavigation = (screen: string) => {
@@ -101,11 +154,32 @@ function App() {
           />
         );
       
+      case 'login':
+        return (
+          <LoginScreen
+            language={language}
+            onLogin={handleLogin}
+            onNavigateToRegister={() => setCurrentScreen('register')}
+            onSkip={handleSkipAuth}
+          />
+        );
+      
+      case 'register':
+        return (
+          <RegisterScreen
+            language={language}
+            onRegister={handleRegister}
+            onNavigateToLogin={() => setCurrentScreen('login')}
+            onSkip={handleSkipAuth}
+          />
+        );
+      
       case 'home':
         return (
           <HomeScreen
             language={language}
             onNavigate={handleNavigation}
+            user={user}
           />
         );
       
@@ -170,6 +244,8 @@ function App() {
             language={language}
             onBack={handleBack}
             onNavigate={handleNavigation}
+            user={user}
+            onLogout={handleLogout}
           />
         );
       

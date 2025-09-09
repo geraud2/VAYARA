@@ -6,9 +6,10 @@ import { Header } from './Header';
 interface HomeScreenProps {
   language: string;
   onNavigate: (screen: string) => void;
+  user?: any;
 }
 
-export const HomeScreen: React.FC<HomeScreenProps> = ({ language, onNavigate }) => {
+export const HomeScreen: React.FC<HomeScreenProps> = ({ language, onNavigate, user }) => {
   const { t } = useTranslation(language);
 
   // Add logo to welcome section
@@ -86,10 +87,21 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ language, onNavigate }) 
               className="w-20 h-20 sm:w-24 sm:h-24 object-contain"
             />
           </div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-2">
-            {t('welcome')}
-          </h1>
-          <p className="text-gray-600 text-base sm:text-lg px-4">{t('subtitle')}</p>
+          {user?.isAuthenticated ? (
+            <div>
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-2">
+                Bonjour {user.name} ! 👋
+              </h1>
+              <p className="text-gray-600 text-base sm:text-lg px-4">Prêt à scanner vos produits ?</p>
+            </div>
+          ) : (
+            <div>
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-2">
+                {t('welcome')}
+              </h1>
+              <p className="text-gray-600 text-base sm:text-lg px-4">{t('subtitle')}</p>
+            </div>
+          )}
         </div>
 
         {/* Menu Grid */}

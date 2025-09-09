@@ -88,6 +88,23 @@ export const storage = {
     }
   },
 
+  user: {
+    get: () => {
+      try {
+        const user = localStorage.getItem('vayara_user');
+        return user ? JSON.parse(user) : null;
+      } catch {
+        return null;
+      }
+    },
+    set: (user: any) => {
+      localStorage.setItem('vayara_user', JSON.stringify(user));
+    },
+    clear: () => {
+      localStorage.removeItem('vayara_user');
+    }
+  },
+
   stats: {
     get: () => {
       try {

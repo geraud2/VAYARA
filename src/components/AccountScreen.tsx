@@ -9,12 +9,16 @@ interface AccountScreenProps {
   language: string;
   onBack: () => void;
   onNavigate: (screen: string) => void;
+  user?: any;
+  onLogout: () => void;
 }
 
 export const AccountScreen: React.FC<AccountScreenProps> = ({ 
   language, 
   onBack, 
-  onNavigate 
+  onNavigate,
+  user,
+  onLogout
 }) => {
   const { t } = useTranslation(language);
   const [subscription, setSubscription] = useState<Subscription>({ type: 'free', features: [] });
@@ -63,8 +67,17 @@ export const AccountScreen: React.FC<AccountScreenProps> = ({
               />
             </div>
             <div>
-              <h2 className="text-lg sm:text-xl font-bold text-gray-800">Utilisateur Vayara</h2>
-              <p className="text-sm sm:text-base text-gray-600">Membre depuis janvier 2024</p>
+              <h2 className="text-lg sm:text-xl font-bold text-gray-800">
+                {user?.isAuthenticated ? user.name : 'Utilisateur Vayara'}
+              </h2>
+              <p className="text-sm sm:text-base text-gray-600">
+                {user?.isAuthenticated ? user.email : 'Membre depuis janvier 2024'}
+              </p>
+              {user?.isAuthenticated && (
+                <span className="inline-block px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full mt-1">
+                  Connecté
+                </span>
+              )}
             </div>
           </div>
 
@@ -158,9 +171,21 @@ export const AccountScreen: React.FC<AccountScreenProps> = ({
         )}
 
         {/* Logout */}
-        <button className="w-full bg-white border-2 border-red-200 text-red-600 font-semibold py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105">
-          {t('logout')}
-        </button>
+        {user?.isAuthenticated ? (
+          <button 
+            onClick={onLogout}
+            className="w-full bg-white border-2 border-red-200 text-red-600 font-semibold py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
+          >
+            {t('logout')}
+          </button>
+        ) : (
+          <button 
+            onClick={() => onNavigate('login')}
+            className="w-full bg-gradient-to-r from-pink-400 to-rose-400 text-white font-semibold py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
+          >
+            Se connecter
+          </button>
+        )}
       </div>
     </div>
   );

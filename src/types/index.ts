@@ -26,6 +26,8 @@ export interface Translations {
 export type Screen = 
   | 'splash'
   | 'language-selection'
+  | 'login'
+  | 'register'
   | 'home'
   | 'scanner'
   | 'product-detail'
@@ -36,7 +38,9 @@ export type Screen =
   | 'account'
   | 'settings'
   | 'premium-dashboard'
-  | 'faq-support';
+  | 'faq-support'
+  | 'custom-lists'
+  | 'badges';
 
 export interface UserStats {
   totalScans: number;
@@ -46,6 +50,14 @@ export interface UserStats {
   streak: number;
 }
 
+export interface User {
+  id: string;
+  email: string;
+  name?: string;
+  isAuthenticated: boolean;
+  subscription: Subscription;
+  createdAt: Date;
+}
 export interface Subscription {
   type: 'free' | 'premium';
   expiresAt?: Date;
