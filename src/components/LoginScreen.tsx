@@ -38,11 +38,11 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
-          <div className="w-24 h-24 mx-auto mb-4 flex items-center justify-center">
+          <div className="w-50 h-50 mx-auto mb-4 flex items-center justify-center">
             <img 
               src="/log copy.png" 
               alt="Vayara Logo" 
-              className="w-20 h-20 object-contain"
+              className="w-80 h-80 object-contain"
             />
           </div>
           <h1 className="text-3xl font-bold text-gray-800 mb-2">
