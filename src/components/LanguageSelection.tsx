@@ -53,13 +53,13 @@ export const LanguageSelection: React.FC<LanguageSelectionProps> = ({
           className="w-full bg-gradient-to-r from-pink-400 to-rose-400 text-white font-semibold py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
         >
           {t('continue')}
-        <div className="w-20 h-20 mx-auto mb-4 flex items-center justify-center">
-          {/* <img 
+        {/* <div className="w-20 h-20 mx-auto mb-4 flex items-center justify-center">
+          <img 
             src="/log copy.png" 
             alt="Vayara Logo" 
             className="w-16 h-16 object-contain"
-          /> */}
-        </div>
+          />
+        </div> */}
         </button>
       </div>
     </div>
