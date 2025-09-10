@@ -101,12 +101,12 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ language, onNavigate, us
           >
             <User className="w-5 h-5 text-gray-600" />
           </button> */}
-          {/* <button
+          { <button
             onClick={() => onNavigate('settings')}
             className="p-2 rounded-full hover:bg-gray-100 transition-colors"
           >
             <Settings className="w-5 h-5 text-gray-600" />
-          </button> */}
+          </button> }
         </div>
       </Header>
       

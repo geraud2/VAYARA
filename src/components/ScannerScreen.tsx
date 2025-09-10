@@ -108,13 +108,14 @@ export const ScannerScreen: React.FC<ScannerScreenProps> = ({
               value={manualBarcode}
               onChange={(e) => setManualBarcode(e.target.value)}
               placeholder="Code-barres..."
-              className="flex-1 p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-400 focus:border-transparent outline-none"
+              className="flex-1 p-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-400 focus:border-transparent outline-none min-w-0"
+              // min-w-0 permet au champ de ne pas dépasser le bouton sur mobile
             />
             <button
               onClick={handleManualSubmit}
               className="bg-gradient-to-r from-pink-400 to-rose-400 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
             >
-              {t('search')}
+              {t('searh')}
             </button>
           </div>
         </div>
