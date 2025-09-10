@@ -95,18 +95,18 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ language, onNavigate, us
     <div className="min-h-screen bg-gradient-to-br from-pink-50 via-white to-rose-50 pb-20 sm:pb-4">
       <Header showLogo={true}> {/* On cache le logo du header pour éviter la duplication */}
         <div className="flex items-center space-x-2">
-          <button
+          {/* <button
             onClick={() => onNavigate('account')}
             className="p-2 rounded-full hover:bg-gray-100 transition-colors"
           >
             <User className="w-5 h-5 text-gray-600" />
-          </button>
-          <button
+          </button> */}
+          {/* <button
             onClick={() => onNavigate('settings')}
             className="p-2 rounded-full hover:bg-gray-100 transition-colors"
           >
             <Settings className="w-5 h-5 text-gray-600" />
-          </button>
+          </button> */}
         </div>
       </Header>
       

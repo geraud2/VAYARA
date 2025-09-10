@@ -1,5 +1,5 @@
 import React from 'react';
-import { Home, Search, Heart, History, User } from 'lucide-react';
+import { Home, Search, Heart, History, User, Scan } from 'lucide-react';
 import { useTranslation } from '../hooks/useTranslation';
 
 interface BottomNavigationProps {
@@ -29,10 +29,10 @@ export const BottomNavigation: React.FC<BottomNavigationProps> = ({
       screen: 'search'
     },
     {
-      id: 'favorites',
-      title: 'Favoris',
-      icon: Heart,
-      screen: 'favorites'
+      id: 'scanner',
+      title: 'Scan',
+      icon: Scan,
+      screen: 'scanner'
     },
     {
       id: 'history',
