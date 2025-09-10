@@ -54,11 +54,11 @@ export const LanguageSelection: React.FC<LanguageSelectionProps> = ({
         >
           {t('continue')}
         <div className="w-20 h-20 mx-auto mb-4 flex items-center justify-center">
-          <img 
+          {/* <img 
             src="/log copy.png" 
             alt="Vayara Logo" 
             className="w-16 h-16 object-contain"
-          />
+          /> */}
         </div>
         </button>
       </div>
